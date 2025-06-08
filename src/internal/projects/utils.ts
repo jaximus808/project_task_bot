@@ -59,7 +59,7 @@ export const GetCurrentProject = async (guild_id: string, pchannel_id: string) :
 
 
 export const CreateProject = async (guild_id: string, pchannel_id: string, output_channel_id: string) : Promise<[any| null, PostgrestError|null]> => {
-    const response = await supabase.from("Projects").insert({
+    const {data, error} = await supabase.from("Projects").insert({
         guild_id: guild_id,
         pchannel_id: pchannel_id,
         sprint_msg: "Sprint Message: ",
@@ -67,7 +67,13 @@ export const CreateProject = async (guild_id: string, pchannel_id: string, outpu
     }).select()
     .single()  
 
-    return [response.data, response.error]
+    return [data, error]
 } 
 
-export const GetProject = async()
+export const UpdateProjectChannel = async (project_id: number, output_channel: string) : Promise<PostgrestError|null> => {
+    const { error } = await supabase.from("Projects").update({
+        output_channel: output_channel
+    }).eq("id", project_id)
+
+    return error;
+}

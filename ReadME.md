@@ -104,10 +104,10 @@ Change the duration of a sprint (and when to auto remind of given sprints tasks)
 
 ### Set Output Channel (WIP)
 
-Set the channel for the bot to output sprint messages and other logs
+Set the channel for the bot to output sprint messages and other logs to the current id
 
 ``` 
- !project set output_chan [channel #id]
+ !project set output 
 ``` 
 
 ### Toggle Sprints (WIP)
