@@ -286,7 +286,7 @@ Gets a map of the projects milestone map
  !milestone map
 ``` 
 
-## Tasks 
+## Tasks (Steps)
 
 For tasks commnads, for commands with leads and amdins they follow this permission structure
 
