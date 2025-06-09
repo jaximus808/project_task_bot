@@ -1,4 +1,4 @@
-# Project Task
+# MilePM Bot (Mile Project Management)
 
 This project aims to allow for easier tracking of a project through a discord bot
 
