@@ -162,21 +162,21 @@ export type Database = {
           discord_id: string | null
           id: number
           project_id: number | null
-          role_level: number | null
+          role_level: number
         }
         Insert: {
           created_at?: string
           discord_id?: string | null
           id?: number
           project_id?: number | null
-          role_level?: number | null
+          role_level: number
         }
         Update: {
           created_at?: string
           discord_id?: string | null
           id?: number
           project_id?: number | null
-          role_level?: number | null
+          role_level?: number
         }
         Relationships: [
           {

@@ -1,31 +1,24 @@
 import { ChannelType } from "discord.js";
-import { OPERATION_TYPE } from "../../../utils/consts";
+import { OPERATION_TYPE, USER_ROLE } from "../../../utils/consts";
 import { DiscordMessage, HandleMessageReport } from "../../../utils/disc_types";
-import { MakeMessageReport } from "../../../utils/helpers";
-import { GetCurrentProject, UpdateProjectChannel } from "../utils";
+import { SetupProjectContext, MakeMessageReport } from "../../../utils/helpers";
+import {  GetCurrentProject, UpdateProjectChannel } from "../utils";
+import { OperationAuth } from "../../auth/auth";
 
-const setSettings = async (message: DiscordMessage, args: string[]) : Promise<HandleMessageReport> => {
+const SetProjectSettings = async (message: DiscordMessage, args: string[]) : Promise<HandleMessageReport> => {
     
-    if (message.channel.type != ChannelType.GuildText) 
-    {
-        return MakeMessageReport(false, "Not in a discord server")
-    }
-    
+ 
     if (args.length < 1) {   
         return MakeMessageReport(false, "Need more parms")
     }
-    if (!message.guildId) {   
-        return MakeMessageReport(false, "Not in a discord server")
-    }
+    
+    const [project, handleError] = await SetupProjectContext(message);
+    
+    if (handleError) return handleError
+    if (!project) return MakeMessageReport(false, "could not find project")
 
-    if (!message.channel.parentId) {   
-        return MakeMessageReport(false, "Channel must have a parent discord channel")
-    }
-
-    const [ project, error ] = await GetCurrentProject( message.guildId, message.channel.parentId );
-
-    if (error || !project) {
-        return MakeMessageReport(false, "Failed to fetch project :(");
+    if (!OperationAuth(message.author.id, USER_ROLE.ADMIN, project.id )) {
+         return MakeMessageReport(false, "Incorrect permissions")
     }
 
     const setting = args[0];
@@ -49,4 +42,4 @@ const setOutputChannel = async (projectId: number, channelId: string) : Promise<
     return MakeMessageReport(false, "successfully set new output channel!")
 }
 
-export default setSettings;
+export default SetProjectSettings;

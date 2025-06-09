@@ -151,7 +151,7 @@ so only these users can set tasks for users under the given subteam
 Removes user as project lead
 
 ``` 
- !project lead rm @user
+ !project rm lead @user
 ``` 
 ## Project Control (ADMIN ONLY)
 
@@ -249,13 +249,13 @@ Updating name
 Moves to the next milestone if one exists 
 
 ``` 
- !milestone next
+ !milestone move next
 ``` 
 
 Moves to the previous milestone if one exists
 
 ``` 
- !milestone prev
+ !milestone move prev
 ``` 
 
 Moves to a given milestone

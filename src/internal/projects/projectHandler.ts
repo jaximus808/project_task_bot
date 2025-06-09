@@ -1,8 +1,8 @@
 import { DiscordMessage, HandleMessageReport } from "../../utils/disc_types";
 import { supabase } from "../../utils/supabase";
-import { OPERATION_TYPE } from "../../utils/consts";
+import { OPERATION_TYPE, USER_ROLE } from "../../utils/consts";
 import { MakeMessageReport } from "../../utils/helpers";
-import { ProjectAuth } from "../auth/auth";
+import { OperationAuth } from "../auth/auth";
 import { Commands } from "./commandMapper";
 
 
@@ -40,14 +40,12 @@ export const ProjectCommandHandler = async (message: DiscordMessage, args: strin
         return MakeMessageReport(false, "Given command does not exist for projects")
     }
 
-    if (!ProjectAuth(message.author.id, command_intent)) {
-         return MakeMessageReport(false, "Incorrect permissions")
-    }
 
 
     const command = args[2].toLowerCase()
     if (command in Commands) {
-        return await Commands[command](message, command_intent, args.slice(2))
+        const operationMethod = Commands[command];
+        return await operationMethod(message, args.slice(2))
     }
 
     return MakeMessageReport(false, "Given command does not exist for projects")

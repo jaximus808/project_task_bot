@@ -49,6 +49,10 @@ const CreateProjectCommand = async (message: DiscordMessage, args: string[]) : P
         return MakeMessageReport(false, "failed to update project");
     }
 
+    //then need to make an admin user 
+
+    
+
     return MakeMessageReport(true, `successfully created project with id: ${new_project.id}!`)
 
 }

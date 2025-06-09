@@ -77,4 +77,19 @@ export enum OPERATION_TYPE  {
     /** @member {number} */
     /* INVALID command */
     FAIL,
+    
+}
+
+/**
+* Enum for user role.
+* @readonly
+* @enum {number}
+*/
+export enum USER_ROLE {
+    /** @member {number} */
+    /** PROJECT LEAD */
+    LEAD = 1,
+     /** @member {number} */
+    /** PROJECT ADMIN */
+    ADMIN
 }

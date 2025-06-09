@@ -1,7 +1,10 @@
 import { PostgrestError } from "@supabase/supabase-js"
 import { supabase } from "../../utils/supabase"
-import { ProjectDiscord } from "../../utils/disc_types"
-import { GeneratePostError } from "../../utils/helpers"
+import { DiscordMessage, HandleMessageReport, ProjectDiscord } from "../../utils/disc_types"
+import { GeneratePostError, MakeMessageReport } from "../../utils/helpers"
+import { ChannelType } from "discord.js"
+import { USER_ROLE } from "../../utils/consts"
+import { OperationAuth } from "../auth/auth"
 
 
 
@@ -77,3 +80,13 @@ export const UpdateProjectChannel = async (project_id: number, output_channel: s
 
     return error;
 }
+
+export const CreateUserRole = async (project_id: number, user_id: string, role_level: number) : Promise<PostgrestError|null> => {
+    const { error } = await supabase.from("Roles").insert({
+        discord_id: user_id,
+        role_level: role_level
+    }).eq("project_id",project_id)
+
+    return error;
+}
+
